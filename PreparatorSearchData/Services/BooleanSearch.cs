@@ -48,7 +48,7 @@ namespace PreparatorSearchData.Services
                     if (!flag.ToString().Contains('0'))
                     {
                         resultIsNone = false;
-                        Console.WriteLine($"See {i + 1}.txt file");
+                        Console.WriteLine($"See {CommonService.Urls[i]}");
                     }
                 }
                 if (resultIsNone)

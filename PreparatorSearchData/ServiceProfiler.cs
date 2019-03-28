@@ -23,7 +23,9 @@ namespace PreparatorSearchData
 
             //BooleanSearch boolean = new BooleanSearch();
             //boolean.StartSearch();
-            TfIdf.GetTfIdfFile();
+            //TfIdf.GetTfIdfFile();
+
+            VectorSearch.Start();
         }
     }
 }

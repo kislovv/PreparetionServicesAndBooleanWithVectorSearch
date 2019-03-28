@@ -38,6 +38,20 @@ namespace PreparatorSearchData.Services
         /// </summary>
         public static string[] LemmitedFiles { get; } = Directory.GetFiles(ProjectDir + @"\Resources\Lemmiter");
 
+        private static string[] _urls;
+
+        public static string[] Urls
+        {
+            get
+            {
+                if (_urls == null)
+                {
+                    _urls = File.ReadAllLines(ProjectDir + @"\Resources\Site\index.txt");
+                }
+                return _urls;
+            }
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -70,6 +84,18 @@ namespace PreparatorSearchData.Services
             return result;
         }
 
+        public static string[] GetStremmingWordsForQuery(string[] request)
+        {
+            var result = new string[request.Length];
+            for (int i = 0; i < request.Length; i++)
+            {
+                var infWord = Analyser.FindAllSourceForm(request[i]).FirstOrDefault();
+                result[i] = (infWord.SourceForm ?? Stemmer.Stemm(request[i]));
+            }
+      
+            return result;
+        }
+
         /// <summary>
         /// Набор слов проиндексированные взятые из json файла 
         /// </summary>
@@ -89,6 +115,33 @@ namespace PreparatorSearchData.Services
                 }
                 return _indexWords;
             }
+        }
+
+
+        private static List<Docs> _tfIdfDocs;
+
+        public static List<Docs> TfIdfDocs
+        {
+            get
+            {
+                if (_tfIdfDocs == null)
+                {
+                    _tfIdfDocs = GetDocs();
+                }
+                return _tfIdfDocs;
+            }
+        }
+
+        private static List<Docs> GetDocs()
+        {
+            List<Docs> docs = new List<Docs>();
+
+            using (StreamReader reader = new StreamReader(ProjectDir + @"\Resources\TfIdf\TfIdf.json"))
+            {
+                string json = reader.ReadToEnd();
+                docs = JsonConvert.DeserializeObject<List<Docs>>(json);
+            }
+            return docs;
         }
 
         /// <summary>

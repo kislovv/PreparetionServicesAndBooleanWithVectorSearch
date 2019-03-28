@@ -33,38 +33,25 @@ namespace PreparatorSearchData.Services
             File.WriteAllText($@"{CommonService.ProjectDir}\Resources\TfIdf\TfIdf.json", json);
         }
 
-        public class Docs
-        {
-            public string DocumentName { get; set; }
-            public double VectorLength { get; set; }
-            public List<ThIdfWord> ThIdfWords { get; set; }
-        }
-
-        public class ThIdfWord
-        {
-            public string Value { get; set; }
-            public double TfIdf { get; set; }
-        }
-
-        private static Dictionary<string, double> GetWordsLengthInFile(string[] words)
+        public static Dictionary<string, double> GetWordsLengthInFile(string[] words)
         {
             Dictionary<string, double> wordsLengthInFile = new Dictionary<string, double>();
 
             foreach (var unicalWord in CommonService.UnicWord)
             {
-                double wordLength = words.Count(x => x == unicalWord);
-                wordsLengthInFile.Add(unicalWord, wordLength / words.Length);
+                double wordCount = words.Count(x => x == unicalWord);
+                wordsLengthInFile.Add(unicalWord, wordCount / words.Length);
             }
             return wordsLengthInFile;
         }
 
-        public static List<ThIdfWord> GetThIdfWords(Dictionary<string, double> wordsLengthInFile , Dictionary<string, double> idfDictionary)
+        public static List<TfIdfWord> GetThIdfWords(Dictionary<string, double> wordsLengthInFile , Dictionary<string, double> idfDictionary)
         {
-            List<ThIdfWord> tfIdfWords = new List<ThIdfWord>();
+            List<TfIdfWord> tfIdfWords = new List<TfIdfWord>();
 
             foreach (var wordKey in wordsLengthInFile.Keys)
             {
-                ThIdfWord thIdfWord = new ThIdfWord
+                TfIdfWord thIdfWord = new TfIdfWord
                 {
                     Value = wordKey,
                     TfIdf = wordsLengthInFile[wordKey] * idfDictionary[wordKey]
