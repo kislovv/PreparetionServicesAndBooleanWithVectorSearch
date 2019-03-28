@@ -16,6 +16,6 @@ for i in range(1,101):
 	w = codecs.open(outputFileName, 'w', 'utf_8_sig')
 	for word in out:
 		infWord = morp.parse(word)[0]
-		if not infWord is None:
+		if not infWord is None and infWord.normal_form != "—" and infWord.normal_form != "–" :
 			w.write(infWord.normal_form+"\r\n")
 	w.close()

@@ -13,8 +13,8 @@ namespace PreparatorSearchData
 
             //Сrawler crawler = new Сrawler("https://sobakainfo.ru");
             //crawler.CrawlingSite();
-            //Lemmiter lemmiter = new Lemmiter();
-            //lemmiter.LemmitedSite();
+            Lemmiter lemmiter = new Lemmiter();
+            lemmiter.LemmitedSite();
 
             //InvertIndex invertIndex = new InvertIndex();
             //invertIndex.GetInvertIndex();
@@ -25,7 +25,7 @@ namespace PreparatorSearchData
             //boolean.StartSearch();
             //TfIdf.GetTfIdfFile();
 
-            VectorSearch.Start();
+            //VectorSearch.Start();
         }
     }
 }

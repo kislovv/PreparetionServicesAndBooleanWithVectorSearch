@@ -17,7 +17,7 @@ namespace PreparatorSearchData.Services
         public static string ProjectDir { get; } = Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName;
 
         /// <summary>
-        /// 
+        /// IDF для всех уникальных слов 
         /// </summary>
         private static Dictionary<string,double> _idfWords;
         public static Dictionary<string, double> IdfWords
@@ -38,8 +38,10 @@ namespace PreparatorSearchData.Services
         /// </summary>
         public static string[] LemmitedFiles { get; } = Directory.GetFiles(ProjectDir + @"\Resources\Lemmiter");
 
+        /// <summary>
+        /// Список всех урлов поиска
+        /// </summary>
         private static string[] _urls;
-
         public static string[] Urls
         {
             get
@@ -53,7 +55,7 @@ namespace PreparatorSearchData.Services
         }
 
         /// <summary>
-        /// 
+        /// Список файлов отсортированные по нумерации (1,2,3...100) а не по строке (1,10,100,...99)
         /// </summary>
         private static List<string> _sortedLemmitedFiles;
         public static List<string> SortedLemmitedFiles
@@ -71,8 +73,8 @@ namespace PreparatorSearchData.Services
         /// <summary>
         /// Возвращает список проллемитизированных слов из запроса (если не может найти начальную форму то стреммит его т.е. обрезает окончание) 
         /// </summary>
-        /// <param name="request"></param>
-        /// <returns></returns>
+        /// <param name="request">список слов запроса</param>
+        /// <returns> обработанный список слов из запроса</returns>
         public static List<string> GetStremmingWords(string[] request)
         {
             var result = new List<string>();
@@ -84,6 +86,11 @@ namespace PreparatorSearchData.Services
             return result;
         }
 
+        /// <summary>
+        /// Леммитизация слов из непосредственного запроса пользователя в векторном поиске
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         public static string[] GetStremmingWordsForQuery(string[] request)
         {
             var result = new string[request.Length];

@@ -21,18 +21,7 @@ namespace PreparatorSearchData.Services
                 FileName = @"C:\Users\Kirill\AppData\Local\Programs\Python\Python37\python.exe",              
                 Arguments = @"C:\Users\Kirill\source\repos\PreparatorSearchData\PreparatorSearchData\Lemmiter.py"
             };
-            using (Process process = Process.Start(start))
-            {
-                using (StreamReader reader = process.StandardOutput)
-                {
-                    string result = reader.ReadToEnd(); // Here is the result of StdOut(for example: print "test")
-                    Console.WriteLine(result);
-                }
-            }
-
-            //ScriptEngine engine = Python.CreateEngine();
-            //engine.ExecuteFile("Lemmiter.py");
-            //Console.Read();
+            using (Process process = Process.Start(start)) { }    
         }
     }
 }

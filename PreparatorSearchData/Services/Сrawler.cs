@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Text;
 
-using AngleSharp;
 using AngleSharp.Html.Dom;
 using AngleSharp.Html.Parser;
 
@@ -16,7 +14,7 @@ namespace PreparatorSearchData.Services
         public string MainUri { get; }
         public Сrawler(string uri)
         {
-            this.MainUri = uri;
+            MainUri = uri;
         }
 
         /// <summary>
