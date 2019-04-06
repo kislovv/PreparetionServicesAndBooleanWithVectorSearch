@@ -35,9 +35,9 @@ namespace PreparatorSearchData.Services
 
                 var queryVectorLength = Math.Sqrt(tfIdfInputQuery.Select(x => x.TfIdf).Sum(y => Math.Pow(y, 2)));
 
-                Dictionary<string, double> resultUrls = GetResultInQuery(tfIdfDocs, tfIdfInputQuery, queryVectorLength);
+                var resultUrls = GetResultInQuery(tfIdfDocs, tfIdfInputQuery, queryVectorLength);
 
-                bool resultIsNone = true;
+                var resultIsNone = true;
                 foreach (var url in resultUrls)
                 {
                     if (url.Value == 0.0)
@@ -57,17 +57,20 @@ namespace PreparatorSearchData.Services
 
         private static Dictionary<string, double> GetResultInQuery(List<Docs> tfIdfDocs, List<TfIdfWord> tfIdfInputQuery, double queryVectorLength)
         {
-            Dictionary<string, double> result = new Dictionary<string, double>();
+            var result = new Dictionary<string, double>();
 
             foreach (var doc in tfIdfDocs)
             {
                 var resultCos = 0.0;
-                for (int i = 0; i < tfIdfInputQuery.Count; i++)
+                for (var i = 0; i < tfIdfInputQuery.Count; i++)
                 {
                     resultCos += tfIdfInputQuery[i].TfIdf * doc.ThIdfWords[i].TfIdf;
                 }
-                resultCos /=queryVectorLength * doc.VectorLength;
-                int urlNum = int.Parse(doc.DocumentName);
+                resultCos = queryVectorLength == 0
+                    ? 0.0
+                    : resultCos / (queryVectorLength * doc.VectorLength);   
+                
+                var urlNum = int.Parse(doc.DocumentName);
                 result.Add(CommonService.Urls[urlNum-1], resultCos);
             }
             var sortesResult = result.OrderByDescending(x => x.Value).ToDictionary(x => x.Key, x => x.Value);

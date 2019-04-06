@@ -29,13 +29,13 @@ namespace PreparatorSearchData.Services
 
                 docs.Add(document);
             }
-            string json = JsonConvert.SerializeObject(docs);
+            var json = JsonConvert.SerializeObject(docs);
             File.WriteAllText($@"{CommonService.ProjectDir}\Resources\TfIdf\TfIdf.json", json);
         }
 
         public static Dictionary<string, double> GetWordsLengthInFile(string[] words)
         {
-            Dictionary<string, double> wordsLengthInFile = new Dictionary<string, double>();
+            var wordsLengthInFile = new Dictionary<string, double>();
 
             foreach (var unicalWord in CommonService.UnicWord)
             {
@@ -47,11 +47,11 @@ namespace PreparatorSearchData.Services
 
         public static List<TfIdfWord> GetThIdfWords(Dictionary<string, double> wordsLengthInFile , Dictionary<string, double> idfDictionary)
         {
-            List<TfIdfWord> tfIdfWords = new List<TfIdfWord>();
+            var tfIdfWords = new List<TfIdfWord>();
 
             foreach (var wordKey in wordsLengthInFile.Keys)
             {
-                TfIdfWord thIdfWord = new TfIdfWord
+                var thIdfWord = new TfIdfWord
                 {
                     Value = wordKey,
                     TfIdf = wordsLengthInFile[wordKey] * idfDictionary[wordKey]

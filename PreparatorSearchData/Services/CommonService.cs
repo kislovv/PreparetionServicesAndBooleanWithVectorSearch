@@ -116,7 +116,7 @@ namespace PreparatorSearchData.Services
                      _indexWords = new List<Word>();
                     using (StreamReader reader = new StreamReader(ProjectDir + @"\Resources\InvertIndex\InvertIndex.json"))
                     {
-                        string json = reader.ReadToEnd();
+                        var json = reader.ReadToEnd();
                         _indexWords = JsonConvert.DeserializeObject<List<Word>>(json);
                     }
                 }
@@ -143,9 +143,9 @@ namespace PreparatorSearchData.Services
         {
             List<Docs> docs = new List<Docs>();
 
-            using (StreamReader reader = new StreamReader(ProjectDir + @"\Resources\TfIdf\TfIdf.json"))
+            using (var reader = new StreamReader(ProjectDir + @"\Resources\TfIdf\TfIdf.json"))
             {
-                string json = reader.ReadToEnd();
+                var json = reader.ReadToEnd();
                 docs = JsonConvert.DeserializeObject<List<Docs>>(json);
             }
             return docs;
@@ -169,7 +169,7 @@ namespace PreparatorSearchData.Services
 
         private static List<string> GetAllUnicalWordsInSite()
         {
-            List<string> words = new List<string>();
+            var words = new List<string>();
             foreach (var filePath in LemmitedFiles)
             {
                 var wordsInFile = File.ReadAllLines(filePath);
@@ -201,7 +201,7 @@ namespace PreparatorSearchData.Services
 
         private static Dictionary<string, double> GetIdfDictionary()
         {
-            Dictionary<string, double> idfDictionary = new Dictionary<string, double>();
+            var idfDictionary = new Dictionary<string, double>();
             foreach (var word in IndexWords)
             {
                 var idf = Math.Log(100 / word.Index.Count(x => x == '1'));

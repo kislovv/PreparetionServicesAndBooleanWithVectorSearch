@@ -7,21 +7,28 @@ using Microsoft.Scripting.Hosting;
 
 namespace PreparatorSearchData.Services
 {
-    public class Lemmiter
+    public static class Lemmiter
     {
-        public void LemmitedWords()
-        {
-           
-        }
-
-        public void LemmitedSite()
-        {
+        
+        public static void LemmitedSite()
+        { 
             ProcessStartInfo start = new ProcessStartInfo
             {
                 FileName = @"C:\Users\Kirill\AppData\Local\Programs\Python\Python37\python.exe",              
                 Arguments = @"C:\Users\Kirill\source\repos\PreparatorSearchData\PreparatorSearchData\Lemmiter.py"
             };
-            using (Process process = Process.Start(start)) { }    
+            using (Process process = Process.Start(start))
+            {
+                if (process.HasExited)
+                {
+                    CallBackProcess();
+                }
+            }    
+        }
+
+        private static void CallBackProcess()
+        {
+            Console.WriteLine("Леммитизация прошла успешно! Словари готовы");
         }
     }
 }

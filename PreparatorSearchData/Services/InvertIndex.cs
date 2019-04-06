@@ -13,14 +13,14 @@ namespace PreparatorSearchData.Services
     {
         public void GetInvertIndex()
         {
-            List<Word> words = new List<Word>();
+            var words = new List<Word>();
             foreach (var word in CommonService.UnicWord)
             {
-                Word currentWord = new Word()
+                var currentWord = new Word()
                 {
                     Name = word,
                 };
-                StringBuilder index = new StringBuilder();
+                var index = new StringBuilder();
                 foreach (var filePath in CommonService.SortedLemmitedFiles)
                 {
                     var wordsInFile = File.ReadAllLines(filePath);
@@ -36,7 +36,7 @@ namespace PreparatorSearchData.Services
                 currentWord.Index = index.ToString();
                 words.Add(currentWord);
             }
-            string json = JsonConvert.SerializeObject(words);
+            var json = JsonConvert.SerializeObject(words);
             File.WriteAllText($@"{CommonService.ProjectDir}\Resources\InvertIndex\InvertIndex.json", json);
         }
     }

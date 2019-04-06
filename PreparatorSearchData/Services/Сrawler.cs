@@ -22,10 +22,10 @@ namespace PreparatorSearchData.Services
         /// </summary>
         public void CrawlingSite()
         {
-            Dictionary<string, string> urlsWithFiles = new Dictionary<string, string>();
+            var urlsWithFiles = new Dictionary<string, string>();
 
-            Uri uri = new Uri(MainUri);
-            string html = string.Empty;
+            var uri = new Uri(MainUri);
+            var html = string.Empty;
             using (WebClient client = new WebClient())
             {
                 html = client.DownloadString(uri);
@@ -83,7 +83,7 @@ namespace PreparatorSearchData.Services
                     : href;
                 using (var client = new WebClient())
                 {
-                    string html = new WebClient().DownloadString(href);
+                    var html = new WebClient().DownloadString(href);
                     using (document = parser.ParseDocument(html))
                     {
                         AddWebPageInDictionary(href, document, urlsAndBodyText, parser);
@@ -95,7 +95,7 @@ namespace PreparatorSearchData.Services
         private static void FillFiles(Dictionary<string, string> urlsAndBodys)
         {
             var file = File.CreateText(@"C:\Users\Kirill\Desktop\Site\urls.txt");
-            int index = 1;
+            var index = 1;
             foreach (var urlBody in urlsAndBodys)
             {
                 File.WriteAllText(@"C:\Users\Kirill\Desktop\Site\" + index + ".txt", urlBody.Value);

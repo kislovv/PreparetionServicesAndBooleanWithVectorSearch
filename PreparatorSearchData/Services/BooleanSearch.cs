@@ -15,7 +15,7 @@ namespace PreparatorSearchData.Services
         public void StartSearch()
         {
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-            List<Word> dictionary = CommonService.IndexWords;
+            var dictionary = CommonService.IndexWords;
 
             while (true)
             {
@@ -40,7 +40,7 @@ namespace PreparatorSearchData.Services
                 var resultIsNone = true;
                 for (int i = 0; i < 100; i++)
                 {
-                    StringBuilder flag = new StringBuilder();
+                    var flag = new StringBuilder();
                     foreach (var analyseWord in searchQuery)
                     {
                         flag.Append(analyseWord.Index[i]);

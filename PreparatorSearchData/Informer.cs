@@ -24,7 +24,7 @@ namespace PreparatorSearchData
             {
                 return "This option is not supported!";
             }
-            StringBuilder state = new StringBuilder();
+            var state = new StringBuilder();
             var namesSubdir = SubDirectory.Select(x => x.Name);
             foreach (var service in services)
             {
